@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using Xceed.Words.NET;
 using static Patient_Manager.Controllers.DateController;
 using static Patient_Manager.Controllers.DocxController;
+using static Patient_Manager.Controllers.gridViewController;
 using System.IO.Compression;
 
 
@@ -27,13 +28,10 @@ namespace Patient_Manager
 
 
                 DocX document = RepairDocx(PatientDocPath);
-                foreach (var fila in document.Tables[0].Rows)
-                {
-                    string textoCelda = fila.Cells[0].Paragraphs[0].Text;
-                    Console.WriteLine(textoCelda);
-                }
-            
-           
+            dataGridView2 = docxToGridView(dataGridView2, document);
+
+
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
