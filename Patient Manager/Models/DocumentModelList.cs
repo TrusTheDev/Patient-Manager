@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Patient_Manager.Models
 {
-    internal class TableModel
+    internal class DocumentModelList
     {
     }
 }

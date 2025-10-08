@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Patient_Manager.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -7,16 +8,32 @@ using System.Text;
 using System.Threading.Tasks;
 using Xceed.Words.NET;
 
-namespace Patient_Manager.Controllers
+namespace Patient_Manager.Models
 {
-    internal class DocxController
+    internal class DocXModel : FileInterface<DocX>
     {
-        public static DocX RepairDocx(String rutaDocx)
+        public DocX Document { get; set; }
+        public string CreationDate { get; set; }
+        public string MonthName { get; set; }
+        public string Format { get; set; }
+        public string Source { get; set; } 
+
+
+        public DocXModel(string creationDate, string monthName, string format)
+        {
+            CreationDate = creationDate;
+            MonthName = monthName;
+            Format = format;
+            Source = MonthName + Format;
+            Document = RepairFile();
+        }
+
+        public DocX RepairFile()
         {
             string rutaTemporal = "doc_temp.docx";
 
             // Descomprimir temporalmente
-            ZipFile.ExtractToDirectory(rutaDocx, "doc_temp");
+            ZipFile.ExtractToDirectory(this.Source, "doc_temp");
 
             // Reemplazar en todos los archivos XML
             foreach (var xml in Directory.GetFiles("doc_temp", "*.xml", SearchOption.AllDirectories))

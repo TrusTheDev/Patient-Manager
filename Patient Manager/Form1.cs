@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Xceed.Words.NET;
 using static Patient_Manager.Controllers.DateController;
-using static Patient_Manager.Controllers.DocxController;
 using static Patient_Manager.Controllers.gridViewController;
 using System.IO.Compression;
+using Patient_Manager.Models;
 
 
 
@@ -20,15 +20,15 @@ namespace Patient_Manager
 {
     public partial class Form1 : Form
     {
-        String PatientDocPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\PatientDocs\Septiembre.docx";
+        String PatientDocPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\PatientDocs\";
         public Form1()
         {
             InitializeComponent();
             label1.Text = GetDate();
 
 
-                DocX document = RepairDocx(PatientDocPath);
-            dataGridView2 = docxToGridView(dataGridView2, document);
+            DocXModel model = new DocXModel("2024", PatientDocPath + "Septiembre", ".docx");
+            dataGridView2 = docxToGridView(dataGridView2, model.Document);
 
 
 
